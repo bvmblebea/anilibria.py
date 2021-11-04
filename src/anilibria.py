@@ -1,3 +1,5 @@
+# Library made by DeLuvSushi
+# P.S I didn't tested many functions!
 import requests
 import random
 import string
