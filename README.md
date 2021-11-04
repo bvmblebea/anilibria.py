@@ -1,5 +1,6 @@
 # AnilibriaAPI
 Python library for Anilibria -  www.anilibria.tv
+Библиотека для аниме вебсайта - www.anilibria.tv
 ![AnilibriaAPI](https://anilibria.app/res/images/og_image.jpg?1598792059)
 
 ### Example
