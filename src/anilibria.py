@@ -12,8 +12,10 @@ class Client():
         self.session = None
         self.headers = {
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
-            "x-requested-with": "XMLHttpRequest"}
+            "x-requested-with": "XMLHttpRequest"
+            }
 
+	# generate captcha
     def generate_captcha(self):
         value = "".join(
             random.choices(
@@ -25,6 +27,7 @@ class Client():
             "-")
         return value
 
+	# login
     def auth(self, email: str, password: str, csrf: int = 1):
         data = {"csrf": csrf, "mail": email, "passwd": password}
         request = requests.post(f"{self.api_v2}/login.php", data=data)
@@ -40,10 +43,12 @@ class Client():
             print(f"Authorization in {email} was sucessful!")
         return request.json()
 
+	# logout
     def logout(self):
         request = requests.get(f"{self.api_v2}/logout.php")
         return request.json()
 
+	# register account
     def register(self, login: str, email: str, password: str):
         data = {
             "g-recaptcha-response": self.generate_captcha(),
@@ -56,6 +61,7 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# search anime
     def search_anime(self, search: str, small: int = 1):
         data = {"search": search, "small": small}
         request = requests.post(
@@ -64,6 +70,7 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# report a error
     def report_a_error(self, message: str, url: str):
         data = {
             "mes": message,
@@ -76,6 +83,7 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# grt favorite anime list
     def favorite_anime_list(
             self,
             year: int = None,
@@ -97,6 +105,7 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# catalog
     def catalog(
             self,
             year: int = None,
@@ -118,6 +127,7 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# get random anime
     def random_anime(self):
         data = {"js": 1}
         request = requests.post(
@@ -126,58 +136,71 @@ class Client():
             headers=self.headers)
         return request.json()
 
+	# get title
     def get_title(self, code: str):
         request = requests.get(f"{self.api}/v2/getTitle?code={code}")
         return request.json()
 
+	# get updates
     def get_updates(self, filter: str, limit: int = 5):
         request = requests.get(
             f"{self.api}/v2/getUpdates?filter={filter},type,status&limit={limit}")
         return request.json()
 
+	# get changes
     def get_changes(self, filter: str, limit: int = 5):
         request = requests.get(
             f"{self.api}/v2/getChanges?filter={filter},type,status&limit={limit}")
         return request.json()
 
+	# get schedule
     def get_schedule(self, days: int):
         request = requests.get(f"{self.api}/v2/getSchedule?days={days}")
         return request.json()
 
+	# get caching nodes
     def get_caching_nodes(self):
         request = requests.get(f"{self.api}/v2/getCachingNodes")
         return request.json()
 
+	# get random title
     def get_random_title(self):
         request = requests.get(f"{self.api}/v2/getRandomTitle")
         return request.json()
 
+	# get YouTube videos
     def get_youtube_videos(self, limit: int = 10):
         request = requests.get(f"{self.api}/v2/getYouTube?limit={limit}")
         return request.json()
 
+	# get feed
     def get_feed(self, limit: int = 10):
         request = requests.get(f"{self.api}/v2/getFeed?limit={limit}")
         return request.json()
 
+	# get years
     def get_years(self):
         request = requests.get(f"{self.api}/v2/getYears")
         return request.json()
 
+	# get genres
     def get_genres(self, sorting_type: int = 0):
         request = requests.get(
             f"{self.api}/v2/getGenres?sorting_type={sorting_type}")
         return request.json()
 
+	# search titles
     def search_titles(self, search: str, limit: int = 10):
         request = requests.get(
             f"{self.api}/v2/searchTitles?search={search}&limit={limit}")
         return request.json()
 
+	# get team
     def get_team(self):
         request = requests.get(f"{self.api}/v2/getTeam")
         return request.json()
 
+	# get seeds stats
     def get_seed_stats(self, users: str = None, limit: int = 10):
         get_seed_stats_link = f"{self.api}/v2/getSeedStats?limit={limit}"
         if users:
@@ -185,20 +208,24 @@ class Client():
         request = requests.get(get_seed_stats_link)
         return request.json()
 
+	# get rss
     def get_rss(self, rss_type: str, limit: int = 5):
         request = requests.get(
             f"{self.api}/v2/getRSS?rss_type={rss_type}&limit={limit}")
         return request.json()
 
+	# get favorite titles
     def get_favorite_titles(self, session: str):
         request = requests.get(f"{self.api}/v2/getFavorites?session={session}")
         return request.json()
 
+	# add title to favorites
     def add_title_to_favorites(self, session: str, title_Id: int):
         request = requests.put(
             f"{self.api}/v2/addFavorite?session={session}&title_id={title_Id}")
         return request.json()
 
+	# delete title from favorites
     def delete_title_from_favorites(self, session: str, title_Id: int):
         request = requests.delete(
             f"{self.api}/v2/delFavorite?session={session}&title_id={title_Id}")
