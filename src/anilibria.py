@@ -46,6 +46,7 @@ class Client():
 	# logout
     def logout(self):
         request = requests.get(f"{self.api_v2}/logout.php")
+        self.session = None
         return request.json()
 
 	# register account
