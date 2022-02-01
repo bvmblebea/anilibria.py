@@ -1,9 +1,8 @@
 # Library made by DeLuvSushi
 # P.S I didn't tested many functions!
 import requests
-import random
-import string
-import json
+from random import choices
+from string import ascii_uppercase, ascii_lowercase
 
 class Client():
     def __init__(self):
@@ -18,9 +17,9 @@ class Client():
 	# generate captcha
     def generate_captcha(self):
         value = "".join(
-            random.choices(
-                string.ascii_uppercase +
-                string.ascii_lowercase +
+            choices(
+                ascii_uppercase +
+                ascii_lowercase +
                 "_-",
                 k=462)).replace(
             "--",
@@ -41,7 +40,7 @@ class Client():
                 print(e)
         else:
             print(f"Authorization in {email} was sucessful!")
-        return request.json()
+        return json
 
 	# logout
     def logout(self):
